@@ -1,0 +1,7 @@
+Short : some Coq program of the termination technique of the oriented equations of adjunction as presented by Dosen [1]. For example, (counit f <o reflection (unit g)) ~> (f <o reflection g), which is the polymorphic (Yoneda) terminology of the common equations. And the confluence technique and links-model resolution technique for semiassociativity and associativity was already programmed and simultaneously-edited and timed-tutored in [2] and [3]. These Coq programs use dependent types to encode source-target functions and use inductives to encode grammatical (free) generations of adjunctions.
+
+The Solution Programme lacks to extend and mix these programming techniques into the enriched-lax monoidal topology (Tholen's TV) or the n-fold-lax categorial homotopy (Riehl's Kan-obsession) or the dissociativity technique (Dosen's boolean categories and linear logic)... ultimately this may converge to the descent technique of Galois. The Solution Programme initiated by Gentzen lacks to comprehend things in different « terminologies » or « formulations » or « coordinates ». This angle of view was continued by Lambek into categories, then by Kelly, then by Dosen-Petric. Einstein's single deepest angle of view was about « coordinates », even before the « spin » or the « entropy » ...
+
+[1] Dosen, "Cut Elimination in Categories" In: https://books.google.com/books?isbn=9401712077
+[2] 1337777.net, "MACLANE PENTAGON COHERENCE IS SOME RECURSIVE COMONADIC DESCENT" In: Studies in Logic, SYSU
+[3] 1337777.net, "1337777.info"
