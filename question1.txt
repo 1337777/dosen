@@ -1,0 +1,37 @@
+Proph,
+
+Short : now [1] is successor from the earlier [2], and presents some Coq program of the congruent resolution technique (« particular cut elimination ») of the oriented equations of adjunction as presented by Dosen [3]. Here some alternative (equivalent) terminology (formulation) is given such that each primitive rewrite equation is saturated (augmented) congruently such to command (« operate ») deep at any node (subterm), and this terminology contains some memory which memorize the links (« effects ») on the composition nodes. For example [6] the command  F (G f2 o G f1) ~> F G (f2 o f1) , is some congruent (bellow F) rewriting of the functoriality of G, and memorizes that the outer composition is linked to the inner composition. In some sense, doing categorial programming may be comparable to doing the common « small-step operational semantics, Hoare memory logic » of C !?1 
+
+    Congruence is indeed the critical angle of view of the common « small-step semantics » [4]. Also are there correlations between this categorial « congruent resolution » technique and the common « deep inference » technique ? And earlier in [2] , which proved « total/global cut elimination », although some non-saturated congruent « small-step semantics » was held, it is possible to formulate some « big-step semantics » inductive definition which mimicks/simulates the recursion contained the cut-elimination theorem : therefore small-step <-> particular and big-step <-> total/global. Also earlier in the semiassociativity completeness and confluence lemmas, the linking technique is easier to describe because the commands (for example, the associativity bracketing command) are in fact terms (arrow terms) of some easy inductive dependent type.
+
+    Also may some shallow embedding onto some logic as « dedukti modulo » [5] be some more sensible compu-logical context than the present deep embedding in Coq ?
+
+[1] 1337777.net, « https://github.com/1337777/dosen/blob/master/dosenSolution1.v »
+
+[2] 1337777.net, « https://github.com/1337777/dosen/blob/master/dosenSolution.v »
+
+[3] Dosen, «Cut Elimination in Categories» In: https://books.google.com/books?isbn=9401712077
+
+[4] https://www.cis.upenn.edu/~bcpierce/sf/current/Smallstep.html
+
+[5] Saillard, http://www.cri.ensmp.fr/people/saillard/Files/thesis.pdf
+
+[6] ADDENDUM. Some lemma :
+« Lemma lem : forall A, exists  f', exists Δ,  Δ ⊧ f' *↜a F| (γ| (G| (@ModIden A) <b G| 1) <b G| 1). »
+
+is solved using this sequence of categorial commands and Coq automation :
+« refine (fun2' at  ( (bottomF (leftComCoMod (bottomγ  (selfCoMod))))) ;; fun1' at ( (bottomF_Refl (rightComCoMod_Refl selfCoMod_Refl))) ;; NOOP);
+      repeat (intuition eauto; econstructor). »
+
+___SOLUTION PROGRAMME MEMO___
+
+Short : some Coq program of the termination technique of the oriented equations of adjunction as presented by Dosen [1]. For example, (counit f <o reflection (unit g)) ~> (f <o reflection g), which is the polymorphic (Yoneda) terminology of the common equations. And the confluence technique and links-model resolution technique for semiassociativity and associativity was already programmed and simultaneously-edited and timed-tutored in [2] and [3]. These Coq programs use dependent types to encode source-target functions and use inductives to encode grammatical (free) generations of adjunctions.
+
+The Solution Programme lacks to extend and mix these automation programming techniques into the enriched-lax monoidal topology (Tholen's TV) or the n-fold-lax categorial homotopy (Riehl's Kan-obsession) or the dissociativity technique (Dosen's boolean categories and linear logic) or the compositional automation technique (Chlipala's ?functorial? MirrorShard)... ultimately this may converge to the descent technique of Galois. The Solution Programme initiated by Gentzen lacks to comprehend things in different « terminologies » or « formulations » or « coordinates ». This angle of view was continued by Lambek into categories, then by Kelly, then by Dosen-Petric. Einstein's single deepest angle of view was about « coordinates », even before the « spin » or the « entropy » ...
+
+[1] Dosen, «Cut Elimination in Categories» In: https://books.google.com/books?isbn=9401712077
+[2] 1337777.net, «MACLANE PENTAGON COHERENCE IS SOME RECURSIVE COMONADIC DESCENT» In: Studies in Logic, SYSU
+[3] 1337777.net, «1337777.info»
+
+___
+
