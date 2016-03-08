@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>combinations.v</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .company-coq-featuresXrefactorings-highlight {
+        /* company-coq-features/refactorings-highlight-face */
+        text-decoration: underline;
+      }
+      .doc {
+        /* font-lock-doc-face */
+        color: #8b2252;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .proof-locked {
+        /* proof-locked-face */
+        background-color: #eaf8ff;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #8b2252;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="proof-locked">
+</span><span class="company-coq-featuresXrefactorings-highlight"><span class="keyword"><span class="proof-locked">Require Import</span></span></span><span class="proof-locked"> List.
+</span><span class="keyword"><span class="proof-locked">Import</span></span><span class="proof-locked"> ListNotations.
+
+</span><span class="keyword"><span class="proof-locked">Definition</span></span><span class="proof-locked"> </span><span class="function-name"><span class="proof-locked">enumerate</span></span><span class="proof-locked"> {</span><span class="variable-name"><span class="proof-locked">A</span></span><span class="proof-locked"> :</span><span class="type"><span class="proof-locked">Set</span></span><span class="proof-locked">} (</span><span class="variable-name"><span class="proof-locked">data</span></span><span class="proof-locked"> : list A) (</span><span class="variable-name"><span class="proof-locked">heights</span></span><span class="proof-locked"> : list nat) : list (list (list A)) :=
+  </span><span class="type"><span class="proof-locked">let</span></span><span class="proof-locked"> enumerate := 
+      (</span><span class="type"><span class="proof-locked">fix</span></span><span class="proof-locked">  enumerate data heights selection combination enumeration {</span><span class="type"><span class="proof-locked">struct</span></span><span class="proof-locked"> data} :=
+         </span><span class="type"><span class="proof-locked">match</span></span><span class="proof-locked"> data </span><span class="type"><span class="proof-locked">with</span></span><span class="proof-locked">
+           | [] =&gt;
+             </span><span class="type"><span class="proof-locked">match</span></span><span class="proof-locked"> heights </span><span class="type"><span class="proof-locked">with</span></span><span class="proof-locked">
+               | [] =&gt; ((List.rev combination) :: enumeration) 
+               | _ =&gt; enumeration
+             </span><span class="type"><span class="proof-locked">end</span></span><span class="proof-locked">
+           | x :: restData =&gt;
+             </span><span class="type"><span class="proof-locked">match</span></span><span class="proof-locked"> heights </span><span class="type"><span class="proof-locked">with</span></span><span class="proof-locked">
+               | [] =&gt; ((List.rev combination) :: enumeration) 
+               | 0 :: restHeights =&gt;
+                 enumerate restData heights selection combination
+                       (enumerate restData restHeights [] ((List.rev (x :: selection)) :: combination) enumeration)
+               | S curHeight :: restHeights =&gt;
+                 enumerate restData heights selection combination
+                       (enumerate restData (curHeight :: restHeights) (x :: selection) combination enumeration) 
+             </span><span class="type"><span class="proof-locked">end</span></span><span class="proof-locked">
+         </span><span class="type"><span class="proof-locked">end</span></span><span class="proof-locked">)
+  </span><span class="type"><span class="proof-locked">in</span></span><span class="proof-locked">
+  enumerate data heights [] [] [].
+
+</span><span class="company-coq-featuresXrefactorings-highlight"><span class="keyword"><span class="proof-locked">Require Import</span></span></span><span class="proof-locked"> String.
+</span><span class="keyword"><span class="proof-locked">Open Scope</span></span><span class="proof-locked"> string.
+
+Compute List.rev ( enumerate [ </span><span class="string"><span class="proof-locked">"a"</span></span><span class="proof-locked"> ; </span><span class="string"><span class="proof-locked">"b"</span></span><span class="proof-locked"> ; </span><span class="string"><span class="proof-locked">"c"</span></span><span class="proof-locked"> ; </span><span class="string"><span class="proof-locked">"d"</span></span><span class="proof-locked"> ; </span><span class="string"><span class="proof-locked">"e"</span></span><span class="proof-locked"> ; </span><span class="string"><span class="proof-locked">"f"</span></span><span class="proof-locked"> ; </span><span class="string"><span class="proof-locked">"g"</span></span><span class="proof-locked"> ] [ 0 ; 1 ; 0 ] ).
+
+</span><span class="doc"><span class="proof-locked">(**
+     = [[["a"]; ["b"; "c"]; ["d"]]; [["a"]; ["b"; "c"]; ["e"]];
+       [["a"]; ["b"; "c"]; ["f"]]; [["a"]; ["b"; "c"]; ["g"]];
+       [["a"]; ["b"; "d"]; ["e"]]; [["a"]; ["b"; "d"]; ["f"]];
+       [["a"]; ["b"; "d"]; ["g"]]; [["a"]; ["b"; "e"]; ["f"]];
+       [["a"]; ["b"; "e"]; ["g"]]; [["a"]; ["b"; "f"]; ["g"]];
+       [["a"]; ["c"; "d"]; ["e"]]; [["a"]; ["c"; "d"]; ["f"]];
+       [["a"]; ["c"; "d"]; ["g"]]; [["a"]; ["c"; "e"]; ["f"]];
+       [["a"]; ["c"; "e"]; ["g"]]; [["a"]; ["c"; "f"]; ["g"]];
+       [["a"]; ["d"; "e"]; ["f"]]; [["a"]; ["d"; "e"]; ["g"]];
+       [["a"]; ["d"; "f"]; ["g"]]; [["a"]; ["e"; "f"]; ["g"]];
+       [["b"]; ["c"; "d"]; ["e"]]; [["b"]; ["c"; "d"]; ["f"]];
+       [["b"]; ["c"; "d"]; ["g"]]; [["b"]; ["c"; "e"]; ["f"]];
+       [["b"]; ["c"; "e"]; ["g"]]; [["b"]; ["c"; "f"]; ["g"]];
+       [["b"]; ["d"; "e"]; ["f"]]; [["b"]; ["d"; "e"]; ["g"]];
+       [["b"]; ["d"; "f"]; ["g"]]; [["b"]; ["e"; "f"]; ["g"]];
+       [["c"]; ["d"; "e"]; ["f"]]; [["c"]; ["d"; "e"]; ["g"]];
+       [["c"]; ["d"; "f"]; ["g"]]; [["c"]; ["e"; "f"]; ["g"]];
+       [["d"]; ["e"; "f"]; ["g"]]]
+     : list (list (list string))
+ **)</span></span>
+
+</pre>
+  </body>
+</html>
